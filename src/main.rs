@@ -16,7 +16,7 @@ fn panic(_info: &PanicInfo) -> ! {
 // Since we have no underlying operating system, we need to provide a starting point
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
-    vga_buffer::print_something();
+    println!("Hello World{}", "!");
 
     loop {}
 }
