@@ -119,7 +119,7 @@ impl Writer {
 
 	fn new_line(&mut self) {
 		for row in 1..BUFFER_HEIGHT {
-			for col in 0..BUFFER_HEIGHT {
+			for col in 0..BUFFER_WIDTH {
 				let character = self.buffer.chars[row][col].read();
 				self.buffer.chars[row-1][col].write(character);
 			}
@@ -146,19 +146,3 @@ impl fmt::Write for Writer {
 		Ok(())
 	}
 } 
-
-pub fn print_something() {
-	use core::fmt::Write;
-
-	let mut writer = Writer {
-		column_position: 0,
-		color_code: ColorCode::new(Color::Yellow, Color::Black),
-		buffer: unsafe { &mut *(0xb8000 as *mut Buffer) } // 0xb8000 is the address of the VGA buffer in mem
-	};
-
-	writer.write_byte(b'H');
-	writer.write_string("ello ");
-	write!(writer, "The numbers are {} and {}", 42, 1.0).unwrap();
-	writer.write_string("\nAnother sentence\n");
-	writer.write_string("And still another one ö");
-}

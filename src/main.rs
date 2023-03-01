@@ -9,7 +9,8 @@ use core::panic::PanicInfo;
 // Note: this function should never return , so the return type is '!'
 //       it is a diverging funciton
 #[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
+fn panic(info: &PanicInfo) -> ! {
+    println!("{}", info);
     loop {}
 }
 
@@ -17,6 +18,8 @@ fn panic(_info: &PanicInfo) -> ! {
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
     println!("Hello World{}", "!");
-
+    println!("This is a long line. A very long line indeed... For test purposes");
+    println!("And some numbers: {} and {}", 42, 1.432);
+    panic!("Some panic message");
     loop {}
 }
